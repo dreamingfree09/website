@@ -4,141 +4,184 @@ body, h1, h2, h3, p, a, button {
     padding: 0;
     font-family: 'Open Sans', sans-serif;
     text-decoration: none;
-    transition: 0.3s;  /* Added transition for smoother effects */
-}
-
-body {
+    transition: 0.3s; /* Added transition for smoother effects */
+  }
+  
+  body {
     background-color: #F5F5F5;
     color: #333;
-}
-
-/* Header */
-header {
+  }
+  
+  /* Header */
+  header {
     background-color: #FFF;
     padding: 20px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-#branding {
+  }
+  
+  #branding {
     display: flex;
     align-items: center;
-}
-
-.logo {
+  }
+  
+  .logo {
     max-width: 150px;
     margin-right: 15px;
-}
-
-.title-section {
+  }
+  
+  .title-section {
     display: block;
     margin-left: 15px;
-}
-
-#branding h1 {
+  }
+  
+  #branding h1 {
     font-size: 1.75em;
     margin-bottom: 5px;
-}
-
-.tagline {   /* New class for the tagline */
+  }
+  
+  .tagline { /* New class for the tagline */
     font-family: 'Cormorant Garamond', serif;
     font-size: 1.2em;
     color: #666;
-}
-
-/* ... Rest of the CSS (unchanged) ... */
-
-#branding p {
+  }
+  
+  /* ... Rest of the CSS (unchanged) ... */
+  
+  #branding p {
     font-size: 1.2em; /* Adjusted font size for clarity */
     color: #666;
-}
-
-nav a, button {
+  }
+  
+  nav a, button {
     margin: 0 10px;
     color: #333;
     font-weight: bold;
     font-size: 1.4em;
-}
-
-/* Authentication Buttons */
-.auth-buttons {
+  }
+  
+  /* Authentication Buttons */
+  .auth-buttons {
     display: flex;
     align-items: center;
-}
-
-#signIn {
+  }
+  
+  #signIn {
     margin-right: -10px;
     background-color: #F5F5F5; /* Light Gray */
-}
-
-#register {
+  }
+  
+  #register {
     margin-left: -10px;
     background-color: #333; /* Near Black */
     color: #FFF; /* White */
-}
-
-button {
+  }
+  
+  button {
     padding: 10px 20px;
     border: none;
     border-radius: 15px;
     font-size: 0.8em;
-}
-
-nav a:hover, button:hover {
+  }
+  
+  nav a:hover, button:hover {
     opacity: 0.7;
-}
-
-/* Main Content */
-main {
+  }
+  
+  /* Main Content */
+  main {
     padding: 20px 5%;
-}
-
-/* Footer */
-footer {
+  }
+  
+  /* Footer */
+  footer {
     background-color: #FFF;
     padding: 20px 5%;
     text-align: center;
     position: fixed;
     bottom: 0;
     width: 100%;
-}
-
-/* Media Queries */
-
-/* Small devices (phones) */
-@media only screen and (max-width: 600px) {
+  }
+  
+  /* Modal and Form Styles */
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+  
+  .modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFF;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  /* Style the form fields */
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  input {
+    margin: 10px 0;
+    padding: 10px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1em;
+  }
+  
+  button[type="submit"] {
+    background-color: #333;
+    color: #FFF;
+    cursor: pointer;
+  }
+  
+  /* Media Queries */
+  /* Small devices (phones) */
+  @media only screen and (max-width: 600px) {
     nav a, .auth-buttons button {
-        display: block;
-        text-align: center;
-        margin: 5px auto;
+      display: block;
+      text-align: center;
+      margin: 5px auto;
     }
-}
-
-/* Medium devices (tablets) */
-@media only screen and (min-width: 601px) and (max-width: 992px) {
+  }
+  
+  /* Medium devices (tablets) */
+  @media only screen and (min-width: 601px) and (max-width: 992px) {
     nav {
-        text-align: center;
+      text-align: center;
     }
-
+  
     nav a, .auth-buttons button {
-        margin: 5px;
+      margin: 5px;
     }
-}
-
-/* Large devices (desktops/laptops) */
-@media only screen and (min-width: 993px) {
+  }
+  
+  /* Large devices (desktops/laptops) */
+  @media only screen and (min-width: 993px) {
     nav {
-        text-align: right;
+      text-align: right;
     }
-
+  
     nav a {
-        margin-left: 50px;
-        margin-right: 10px;
+      margin-left: 50px;
+      margin-right: 10px;
     }
-
+  
     .auth-buttons button {
-        margin-left: 5px;
-        margin-right: 5px;
+      margin-left: 5px;
+      margin-right: 5px;
     }
-}
+  }
+  
