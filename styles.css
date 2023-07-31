@@ -185,3 +185,66 @@ body, h1, h2, h3, p, a, button {
     }
   }
   
+  /* Add "hand" cursor to buttons on hover */
+button:hover {
+  cursor: pointer;
+}
+
+/* Underline effect for navigation links on hover */
+nav a {
+  position: relative;
+  padding-bottom: 3px;
+  text-decoration: none; /* Remove the default underline */
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #333; /* Adjust the color of the underline */
+  transition: width 0.5s; /* Smooth transition for the width */
+}
+
+nav a:hover::after {
+  width: 100%; /* Make the underline expand to the full width on hover */
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* About and Contact buttons */
+#aboutButton,
+#contactButton {
+  font-size: 1em;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Empty div to push copyright text to the center */
+.spacer {
+  flex: 1;
+}
+
+/* Center the copyright text */
+.footer-content p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}

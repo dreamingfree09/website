@@ -2,43 +2,142 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Picniq - Forum</title>
-    <link rel="stylesheet" href="/css/styles.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@400;700&display=swap">
-    <link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Picniq - Forum</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@400;700&display=swap">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
 </head>
-
 <body>
-    <header>
-        <div id="branding">
-            <img src="/images/logo.png" alt="Picniq Logo" class="logo">
-            <div class="title-section">
-                <h1>Picniq</h1>
-                <p class="tagline">Gather, Share, Grow</p>
-            </div>
-        </div>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Picniq Logo" class="logo">
+      <div class="title-section">
+        <h1>Picniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
 
-        <nav>
-            <a href="index.html">Home</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="pathways.html">IT Pathways</a>
-            <a href="forum.html">Forum</a>
-        </nav>
-        <div class="auth-buttons">
-            <button id="signIn">Sign In</button>
-            <button id="register">Register</button>
-        </div>
-    </header>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="signIn">Sign In</button>
+      <button id="register">Register</button>
+    </div>
+  </header>
 
     <main>
         <!-- Content of the Forum page goes here -->
     </main>
 
     <footer>
+      <div class="footer-content">
+        <div class="auth-buttons">
+          <button id="contactButton">Contact</button>
+          <button id="aboutButton">About</button>
+        </div>
+        <div class="spacer"></div>
         <p>&copy; 2023 Picniq. All rights reserved.</p>
+      </div>
     </footer>
-</body>
-
-</html>
+      <!-- Modal for Sign In/Register -->
+      <div class="modal" id="signInModal">
+        <div class="modal-content">
+          <!-- Sign In Form -->
+          <form id="signInForm">
+            <!-- Form fields for sign-in -->
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+            <button class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <div class="modal" id="registerModal">
+        <div class="modal-content">
+          <!-- Register Form -->
+          <form id="registerForm">
+            <!-- Form fields for registration -->
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <input type="password" name="confirmPassword" placeholder="Confirm Password">
+            <button type="submit">Register</button>
+            <button class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <!-- Modal for Contact -->
+      <div class="modal" id="contactModal">
+        <div class="modal-content">
+          <h3>Contact Us</h3>
+          <p>This is a simple contact section where you can reach out to us.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <!-- Modal for About -->
+      <div class="modal" id="aboutModal">
+        <div class="modal-content">
+          <h3>About Us</h3>
+          <p>This is a brief description of who we are and what we do.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <script>
+        const signInButton = document.getElementById("signIn");
+        const registerButton = document.getElementById("register");
+        const signInModal = document.getElementById("signInModal");
+        const registerModal = document.getElementById("registerModal");
+        const contactButton = document.getElementById("contactButton");
+        const aboutButton = document.getElementById("aboutButton");
+        const contactModal = document.getElementById("contactModal");
+        const aboutModal = document.getElementById("aboutModal");
+    
+        contactButton.addEventListener("click", () => {
+          contactModal.style.display = "block";
+        });
+    
+        aboutButton.addEventListener("click", () => {
+          aboutModal.style.display = "block";
+        });
+    
+        signInButton.addEventListener("click", () => {
+          signInModal.style.display = "block";
+        });
+    
+        registerButton.addEventListener("click", () => {
+          registerModal.style.display = "block";
+        });
+    
+        // Close modals when clicking outside the modal content
+        window.addEventListener("click", (event) => {
+          if (event.target.classList.contains("modal")) {
+            signInModal.style.display = "none";
+            registerModal.style.display = "none";
+            contactModal.style.display = "none";
+            aboutModal.style.display = "none";
+          }
+        });
+    
+        // Close modals when clicking the close button
+        const closeButtons = document.querySelectorAll(".close-modal");
+        closeButtons.forEach((button) => {
+          button.addEventListener("click", () => {
+            signInModal.style.display = "none";
+            registerModal.style.display = "none";
+            contactModal.style.display = "none";
+            aboutModal.style.display = "none";
+          });
+        });
+      </script>
+    </body>
+    </html>

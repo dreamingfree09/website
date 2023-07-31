@@ -1,187 +1,303 @@
+/* styles.css */
+
 /* Reset & Base Styles */
 body, h1, h2, h3, p, a, button {
-    margin: 0;
-    padding: 0;
-    font-family: 'Open Sans', sans-serif;
-    text-decoration: none;
-    transition: 0.3s; /* Added transition for smoother effects */
-  }
-  
-  body {
-    background-color: #F5F5F5;
-    color: #333;
-  }
-  
-  /* Header */
-  header {
-    background-color: #FFF;
-    padding: 20px 5%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  #branding {
-    display: flex;
-    align-items: center;
-  }
-  
-  .logo {
-    max-width: 150px;
-    margin-right: 15px;
-  }
-  
-  .title-section {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  text-decoration: none;
+  transition: 0.3s;
+}
+
+body {
+  background-color: #F5F5F5;
+  color: #333;
+}
+
+/* Header */
+header {
+  background-color: #FFF;
+  padding: 20px 5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+#branding {
+  display: flex;
+  align-items: center;
+}
+
+.logo {
+  max-width: 150px;
+  margin-right: 15px;
+}
+
+.title-section {
+  display: block;
+  margin-left: 15px;
+}
+
+#branding h1 {
+  font-size: 1.75em;
+  margin-bottom: 5px;
+}
+
+.tagline {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.2em;
+  color: #666;
+}
+
+/* ... Rest of the CSS (unchanged) ... */
+
+#branding p {
+  font-size: 1.2em;
+  color: #666;
+}
+
+nav a, button {
+  margin: 0 10px;
+  color: #333;
+  font-weight: bold;
+  font-size: 1.4em;
+}
+
+/* Authentication Buttons */
+.auth-buttons {
+  display: flex;
+  align-items: center;
+}
+
+#signIn {
+  margin-right: -10px;
+  background-color: #F5F5F5;
+}
+
+#register {
+  margin-left: -10px;
+  background-color: #333;
+  color: #FFF;
+}
+
+button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 15px;
+  font-size: 0.8em;
+}
+
+nav a:hover, button:hover {
+  opacity: 0.7;
+}
+
+/* Main Content */
+main {
+  padding: 20px 5%;
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+/* Modal and Form Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.modal-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Style the form fields */
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input {
+  margin: 10px 0;
+  padding: 10px;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1em;
+}
+
+button[type="submit"] {
+  background-color: #333;
+  color: #FFF;
+  cursor: pointer;
+}
+
+/* Media Queries */
+/* Small devices (phones) */
+@media only screen and (max-width: 600px) {
+  nav a, .auth-buttons button {
     display: block;
-    margin-left: 15px;
-  }
-  
-  #branding h1 {
-    font-size: 1.75em;
-    margin-bottom: 5px;
-  }
-  
-  .tagline { /* New class for the tagline */
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 1.2em;
-    color: #666;
-  }
-  
-  /* ... Rest of the CSS (unchanged) ... */
-  
-  #branding p {
-    font-size: 1.2em; /* Adjusted font size for clarity */
-    color: #666;
-  }
-  
-  nav a, button {
-    margin: 0 10px;
-    color: #333;
-    font-weight: bold;
-    font-size: 1.4em;
-  }
-  
-  /* Authentication Buttons */
-  .auth-buttons {
-    display: flex;
-    align-items: center;
-  }
-  
-  #signIn {
-    margin-right: -10px;
-    background-color: #F5F5F5; /* Light Gray */
-  }
-  
-  #register {
-    margin-left: -10px;
-    background-color: #333; /* Near Black */
-    color: #FFF; /* White */
-  }
-  
-  button {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 15px;
-    font-size: 0.8em;
-  }
-  
-  nav a:hover, button:hover {
-    opacity: 0.7;
-  }
-  
-  /* Main Content */
-  main {
-    padding: 20px 5%;
-  }
-  
-  /* Footer */
-  footer {
-    background-color: #FFF;
-    padding: 20px 5%;
     text-align: center;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+    margin: 5px auto;
   }
-  
-  /* Modal and Form Styles */
-  .modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
+}
+
+/* Medium devices (tablets) */
+@media only screen and (min-width: 601px) and (max-width: 992px) {
+  nav {
+    text-align: center;
   }
-  
-  .modal-content {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #FFF;
-    padding: 20px;
-    border-radius: 10px;
+
+  nav a, .auth-buttons button {
+    margin: 5px;
   }
-  
-  /* Style the form fields */
-  form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+}
+
+/* Large devices (desktops/laptops) */
+@media only screen and (min-width: 993px) {
+  nav {
+    text-align: right;
   }
-  
-  input {
-    margin: 10px 0;
-    padding: 10px;
-    width: 100%;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 1em;
+
+  nav a {
+    margin-left: 50px;
+    margin-right: 10px;
   }
-  
-  button[type="submit"] {
-    background-color: #333;
-    color: #FFF;
-    cursor: pointer;
+
+  .auth-buttons button {
+    margin-left: 5px;
+    margin-right: 5px;
   }
-  
-  /* Media Queries */
-  /* Small devices (phones) */
-  @media only screen and (max-width: 600px) {
-    nav a, .auth-buttons button {
-      display: block;
-      text-align: center;
-      margin: 5px auto;
-    }
-  }
-  
-  /* Medium devices (tablets) */
-  @media only screen and (min-width: 601px) and (max-width: 992px) {
-    nav {
-      text-align: center;
-    }
-  
-    nav a, .auth-buttons button {
-      margin: 5px;
-    }
-  }
-  
-  /* Large devices (desktops/laptops) */
-  @media only screen and (min-width: 993px) {
-    nav {
-      text-align: right;
-    }
-  
-    nav a {
-      margin-left: 50px;
-      margin-right: 10px;
-    }
-  
-    .auth-buttons button {
-      margin-left: 5px;
-      margin-right: 5px;
-    }
-  }
-  
+}
+
+/* Add "hand" cursor to buttons on hover */
+button:hover {
+  cursor: pointer;
+}
+
+/* Underline effect for navigation links on hover */
+nav a {
+  position: relative;
+  padding-bottom: 3px;
+  text-decoration: none; /* Remove the default underline */
+}
+
+nav a::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background-color: #333; /* Adjust the color of the underline */
+  transition: width 0.5s; /* Smooth transition for the width */
+}
+
+nav a:hover::after {
+  width: 100%; /* Make the underline expand to the full width on hover */
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex; /* Add flexbox display */
+  justify-content: space-between; /* Space items evenly along the flex container */
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr auto; /* Two columns: first column takes available space, second column takes content width */
+  gap: 20px; /* Gap between columns */
+  align-items: center; /* Center items vertically */
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  justify-content: space-between; /* Pushes content to both edges */
+  align-items: center; /* Centers items vertically */
+}
+
+/* Footer */
+footer {
+  background-color: #FFF;
+  padding: 20px 5%;
+  text-align: center;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* About and Contact buttons */
+#aboutButton,
+#contactButton {
+  font-size: 1em;
+  padding: 5px 10px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* Empty div to push copyright text to the center */
+.spacer {
+  flex: 1;
+}
+
+/* Center the copyright text */
+.footer-content p {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
