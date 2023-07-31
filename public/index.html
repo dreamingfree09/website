@@ -8,8 +8,9 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@400;700&display=swap">
   <link rel="icon" href="/images/logo.png" type="image/x-icon">
-
-  </head>
+  <link rel="stylesheet" href="/css/slider.css"> <!-- Add the CSS for the slider -->
+  <script src="/app.js"></script>
+</head>
   <body>
     <header>
       <div id="branding">
@@ -36,6 +37,16 @@
     <main>
       <h2>Welcome to Picniq</h2>
       <p>This is a sample paragraph to showcase how content will look on the site. As you add real content, you can replace these placeholders.</p>
+       <!-- Image Slider -->
+    <div class="slider">
+      <img class="slide" src="/images/image 1.png" alt="image 1">
+      <img class="slide" src="/images/image 2.png" alt="image 2">
+      <img class="slide" src="/images/image 3.png" alt="image 3">
+
+      <!-- Arrow buttons -->
+      <div id="arrow-left" class="arrow">&#10094;</div>
+      <div id="arrow-right" class="arrow">&#10095;</div>
+    </div>
     </main>
   
     <footer>
@@ -49,7 +60,9 @@
       </div>
     </footer>
     
-    
+    <!-- Modal and slider scripts -->
+  <script src="/js/slider.js"></script> <!-- Add the JavaScript for the slider -->
+  
   
     <!-- Modal for Sign In/Register -->
     <div class="modal" id="signInModal">
@@ -144,5 +157,8 @@
         });
       });
     </script>
+    <script src="/slider.js"></script> <!-- Make sure to adjust the path if necessary -->
+
+</body>
   </body>
   </html>

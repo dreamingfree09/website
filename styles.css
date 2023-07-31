@@ -248,3 +248,43 @@ footer {
   left: 50%;
   transform: translateX(-50%);
 }
+
+/* Styles for the image slider */
+.slider {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+}
+
+.slide {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.slide:first-child {
+  display: block;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  cursor: pointer;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 5px 10px;
+}
+
+#arrow-left {
+  left: 10px;
+}
+
+#arrow-right {
+  right: 10px;
+}
