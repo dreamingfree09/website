@@ -8,7 +8,9 @@
   <link rel="stylesheet" href="/css/styles.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;700&family=Open+Sans:wght@400;700&display=swap">
   <link rel="icon" href="/images/logo.png" type="image/x-icon">
-  </head>
+  <link rel="stylesheet" href="/css/slider.css"> <!-- Add the CSS for the slider -->
+  <script src="/app.js"></script>
+</head>
   <body>
     <header>
       <div id="branding">
@@ -35,6 +37,16 @@
     <main>
       <h2>Welcome to Picniq</h2>
       <p>This is a sample paragraph to showcase how content will look on the site. As you add real content, you can replace these placeholders.</p>
+       <!-- Image Slider -->
+    <div class="slider">
+      <img class="slide" src="/images/image 1.png" alt="image 1">
+      <img class="slide" src="/images/image 2.png" alt="image 2">
+      <img class="slide" src="/images/image 3.png" alt="image 3">
+
+      <!-- Arrow buttons -->
+      <div id="arrow-left" class="arrow">&#10094;</div>
+      <div id="arrow-right" class="arrow">&#10095;</div>
+    </div>
     </main>
   
     <footer>
@@ -48,98 +60,105 @@
       </div>
     </footer>
     
-      <!-- Modal for Sign In/Register -->
-      <div class="modal" id="signInModal">
-        <div class="modal-content">
-          <!-- Sign In Form -->
-          <form id="signInForm">
-            <!-- Form fields for sign-in -->
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <button type="submit">Sign In</button>
-            <button class="close-modal">Close</button> <!-- Close button added -->
-          </form>
-        </div>
-      </div>
-    
-      <div class="modal" id="registerModal">
-        <div class="modal-content">
-          <!-- Register Form -->
-          <form id="registerForm">
-            <!-- Form fields for registration -->
-            <input type="email" name="email" placeholder="Email">
-            <input type="password" name="password" placeholder="Password">
-            <input type="password" name="confirmPassword" placeholder="Confirm Password">
-            <button type="submit">Register</button>
-            <button class="close-modal">Close</button> <!-- Close button added -->
-          </form>
-        </div>
-      </div>
-    
-      <!-- Modal for Contact -->
-      <div class="modal" id="contactModal">
-        <div class="modal-content">
-          <h3>Contact Us</h3>
-          <p>This is a simple contact section where you can reach out to us.</p>
+    <!-- Modal and slider scripts -->
+  <script src="/js/slider.js"></script> <!-- Add the JavaScript for the slider -->
+  
+  
+    <!-- Modal for Sign In/Register -->
+    <div class="modal" id="signInModal">
+      <div class="modal-content">
+        <!-- Sign In Form -->
+        <form id="signInForm">
+          <!-- Form fields for sign-in -->
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password">
+          <button type="submit">Sign In</button>
           <button class="close-modal">Close</button> <!-- Close button added -->
-        </div>
+        </form>
       </div>
-    
-      <!-- Modal for About -->
-      <div class="modal" id="aboutModal">
-        <div class="modal-content">
-          <h3>About Us</h3>
-          <p>This is a brief description of who we are and what we do.</p>
+    </div>
+  
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <!-- Register Form -->
+        <form id="registerForm">
+          <!-- Form fields for registration -->
+          <input type="email" name="email" placeholder="Email">
+          <input type="password" name="password" placeholder="Password">
+          <input type="password" name="confirmPassword" placeholder="Confirm Password">
+          <button type="submit">Register</button>
           <button class="close-modal">Close</button> <!-- Close button added -->
-        </div>
+        </form>
       </div>
-    
-      <script>
-        const signInButton = document.getElementById("signIn");
-        const registerButton = document.getElementById("register");
-        const signInModal = document.getElementById("signInModal");
-        const registerModal = document.getElementById("registerModal");
-        const contactButton = document.getElementById("contactButton");
-        const aboutButton = document.getElementById("aboutButton");
-        const contactModal = document.getElementById("contactModal");
-        const aboutModal = document.getElementById("aboutModal");
-    
-        contactButton.addEventListener("click", () => {
-          contactModal.style.display = "block";
+    </div>
+  
+    <!-- Modal for Contact -->
+    <div class="modal" id="contactModal">
+      <div class="modal-content">
+        <h3>Contact Us</h3>
+        <p>This is a simple contact section where you can reach out to us.</p>
+        <button class="close-modal">Close</button> <!-- Close button added -->
+      </div>
+    </div>
+  
+    <!-- Modal for About -->
+    <div class="modal" id="aboutModal">
+      <div class="modal-content">
+        <h3>About Us</h3>
+        <p>This is a brief description of who we are and what we do.</p>
+        <button class="close-modal">Close</button> <!-- Close button added -->
+      </div>
+    </div>
+  
+    <script>
+      const signInButton = document.getElementById("signIn");
+      const registerButton = document.getElementById("register");
+      const signInModal = document.getElementById("signInModal");
+      const registerModal = document.getElementById("registerModal");
+      const contactButton = document.getElementById("contactButton");
+      const aboutButton = document.getElementById("aboutButton");
+      const contactModal = document.getElementById("contactModal");
+      const aboutModal = document.getElementById("aboutModal");
+  
+      contactButton.addEventListener("click", () => {
+        contactModal.style.display = "block";
+      });
+  
+      aboutButton.addEventListener("click", () => {
+        aboutModal.style.display = "block";
+      });
+  
+      signInButton.addEventListener("click", () => {
+        signInModal.style.display = "block";
+      });
+  
+      registerButton.addEventListener("click", () => {
+        registerModal.style.display = "block";
+      });
+  
+      // Close modals when clicking outside the modal content
+      window.addEventListener("click", (event) => {
+        if (event.target.classList.contains("modal")) {
+          signInModal.style.display = "none";
+          registerModal.style.display = "none";
+          contactModal.style.display = "none";
+          aboutModal.style.display = "none";
+        }
+      });
+  
+      // Close modals when clicking the close button
+      const closeButtons = document.querySelectorAll(".close-modal");
+      closeButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          signInModal.style.display = "none";
+          registerModal.style.display = "none";
+          contactModal.style.display = "none";
+          aboutModal.style.display = "none";
         });
-    
-        aboutButton.addEventListener("click", () => {
-          aboutModal.style.display = "block";
-        });
-    
-        signInButton.addEventListener("click", () => {
-          signInModal.style.display = "block";
-        });
-    
-        registerButton.addEventListener("click", () => {
-          registerModal.style.display = "block";
-        });
-    
-        // Close modals when clicking outside the modal content
-        window.addEventListener("click", (event) => {
-          if (event.target.classList.contains("modal")) {
-            signInModal.style.display = "none";
-            registerModal.style.display = "none";
-            contactModal.style.display = "none";
-            aboutModal.style.display = "none";
-          }
-        });
-    
-        // Close modals when clicking the close button
-        const closeButtons = document.querySelectorAll(".close-modal");
-        closeButtons.forEach((button) => {
-          button.addEventListener("click", () => {
-            signInModal.style.display = "none";
-            registerModal.style.display = "none";
-            contactModal.style.display = "none";
-            aboutModal.style.display = "none";
-          });
-        });
-      </script>
-    </body>
-    </html>
+      });
+    </script>
+    <script src="/slider.js"></script> <!-- Make sure to adjust the path if necessary -->
+
+</body>
+  </body>
+  </html>
