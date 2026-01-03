@@ -106,8 +106,8 @@ It includes authentication, profiles, a discussion forum (with curated tags), cu
 
 1. **Clone the repository:**
    ```bash
-   git clone <repository-url>
-   cd website-main
+   git clone https://github.com/dreamingfree09/piqniq.git
+   cd piqniq
    ```
 
 2. **Install dependencies:**
@@ -120,6 +120,8 @@ It includes authentication, profiles, a discussion forum (with curated tags), cu
    ```env
    MONGODB_URI=mongodb://localhost:27017/piqniq
    SESSION_SECRET=your-super-secret-key-here
+   # Auto-logout after inactivity (minutes). Set to 0 to disable.
+   SESSION_IDLE_TIMEOUT_MINUTES=30
    PORT=3000
    ```
 
@@ -162,6 +164,9 @@ This repo includes a `Dockerfile` and `docker-compose.yml` that you can use for 
    ```env
    NODE_ENV=production
    SESSION_SECRET=<generate-a-long-random-secret>
+
+   # Auto-logout after inactivity (minutes). Set to 0 to disable.
+   SESSION_IDLE_TIMEOUT_MINUTES=30
 
    # Used by docker-compose.yml to initialize MongoDB and to build the default MONGODB_URI
    MONGO_USERNAME=admin

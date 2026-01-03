@@ -35,6 +35,14 @@
     "developers",
     "social"
   ],
+  "homepage": "https://github.com/dreamingfree09/piqniq#readme",
+  "bugs": {
+    "url": "https://github.com/dreamingfree09/piqniq/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dreamingfree09/piqniq.git"
+  },
   "author": "",
   "license": "MIT",
   "dependencies": {

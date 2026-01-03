@@ -11,8 +11,8 @@
 
 ```bash
 # Clone the repository (if not already)
-git clone <repository-url>
-cd website-main
+git clone https://github.com/dreamingfree09/piqniq.git
+cd piqniq
 
 # Install dependencies (516 packages)
 npm install
@@ -31,6 +31,9 @@ MONGODB_URI=mongodb://localhost:27017/piqniq
 
 # Session
 SESSION_SECRET=your-secret-key-here
+
+# Auto-logout after inactivity (minutes). Set to 0 to disable.
+SESSION_IDLE_TIMEOUT_MINUTES=30
 
 # Email (for password reset)
 EMAIL_HOST=smtp.gmail.com

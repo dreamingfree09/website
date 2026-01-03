@@ -162,6 +162,32 @@ const cookieSecure = process.env.COOKIE_SECURE
   ? process.env.COOKIE_SECURE.toLowerCase() === 'true'
   : process.env.NODE_ENV === 'production' && isHttpsBaseUrl;
 
+const parseSessionIdleTimeoutMinutes = () => {
+  const raw = String(process.env.SESSION_IDLE_TIMEOUT_MINUTES ?? '').trim();
+
+  // Default: 60 minutes of inactivity.
+  // Set to 0/false to disable idle timeout.
+  if (!raw) return 60;
+  if (raw.toLowerCase() === 'false') return 0;
+
+  const minutes = Number(raw);
+  if (!Number.isFinite(minutes) || minutes < 0) return 60;
+  return minutes;
+};
+
+const sessionIdleTimeoutMinutes = parseSessionIdleTimeoutMinutes();
+const sessionIdleTimeoutMs = sessionIdleTimeoutMinutes > 0
+  ? Math.max(60_000, Math.floor(sessionIdleTimeoutMinutes * 60_000))
+  : 0;
+
+// Reduce session store churn: only update the session activity timestamp at most once per minute.
+const sessionActivityTouchMs = 60_000;
+
+// connect-mongo touchAfter is in seconds; keep it comfortably below the idle timeout so TTL can extend.
+const sessionStoreTouchAfterSeconds = sessionIdleTimeoutMs > 0
+  ? Math.max(60, Math.min(15 * 60, Math.floor((sessionIdleTimeoutMs / 1000) / 4)))
+  : 24 * 3600;
+
 app.disable('x-powered-by');
 
 // Performance: gzip compression reduces payload sizes significantly.
@@ -288,10 +314,12 @@ app.use(session({
   saveUninitialized: false,
   store: isTestRuntime ? undefined : MongoStore.create({
     mongoUrl: mongoUri,
-    touchAfter: 24 * 3600 // lazy session update
+    touchAfter: sessionStoreTouchAfterSeconds // lazy session update
   }),
   cookie: {
-    maxAge: 1000 * 60 * 60 * 24 * 7, // 1 week
+    maxAge: sessionIdleTimeoutMs > 0
+      ? sessionIdleTimeoutMs
+      : 1000 * 60 * 60 * 24 * 7, // fallback: 1 week
     httpOnly: true,
     secure: cookieSecure,
     sameSite: 'strict' // CSRF protection
@@ -300,6 +328,50 @@ app.use(session({
 
 // Request logging
 app.use(requestLogger);
+
+// Session idle timeout (auto-logout on inactivity)
+//
+// Behavior:
+// - For authenticated sessions, track a last-activity timestamp.
+// - If a request arrives after the idle threshold, destroy the session.
+// - HTML routes redirect to the home auth modal; API routes return 401.
+if (sessionIdleTimeoutMs > 0) {
+  app.use((req, res, next) => {
+    if (!req.session || !req.session.userId) return next();
+
+    const now = Date.now();
+    const last = Number(req.session.lastActivityAt || 0);
+
+    if (last && (now - last) > sessionIdleTimeoutMs) {
+      const cookieName = 'connect.sid';
+      res.clearCookie(cookieName, {
+        httpOnly: true,
+        secure: cookieSecure,
+        sameSite: 'strict',
+        path: '/'
+      });
+
+      try {
+        req.session.destroy(() => {});
+      } catch {
+        // ignore
+      }
+
+      if (String(req.path || '').startsWith('/api/')) {
+        return res.status(401).json({ error: 'Session expired due to inactivity' });
+      }
+
+      const nextUrl = encodeURIComponent(req.originalUrl || '/');
+      return res.redirect(302, `/?auth=expired&next=${nextUrl}`);
+    }
+
+    if (!last || (now - last) > sessionActivityTouchMs) {
+      req.session.lastActivityAt = now;
+    }
+
+    return next();
+  });
+}
 
 // --- Performance: automatic image optimization (PNG/JPG -> WebP) ---
 // Large images are the #1 cause of slow page loads. This middleware serves a
