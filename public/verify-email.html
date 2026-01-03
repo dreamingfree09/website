@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<!--
+  public/verify-email.html
+
+  Email verification landing page.
+
+  - Expects a `token` query param: /verify-email?token=...
+  - Calls the API route /api/email/verify/:token
+  - Shows a success/failure status and provides navigation links
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Email Verification - Piqniq</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .verification-container {
+      max-width: 500px;
+      margin: 100px auto;
+      padding: 40px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+    .verification-icon {
+      font-size: 64px;
+      margin-bottom: 20px;
+    }
+    .success { color: #10b981; }
+    .error { color: #ef4444; }
+    .loading { color: #667eea; }
+  </style>
+</head>
+<body>
+  <div class="verification-container">
+    <div id="loading" class="verification-icon loading">⏳</div>
+    <div id="success" class="verification-icon success" style="display:none;">✅</div>
+    <div id="error-icon" class="verification-icon error" style="display:none;">❌</div>
+    
+    <h1 id="title">Verifying Email...</h1>
+    <p id="message">Please wait while we verify your email address.</p>
+    
+    <div id="actions" style="display:none; margin-top: 30px;">
+      <a href="/forum.html" class="btn btn-primary">Go to Forum</a>
+      <a href="/index.html" class="btn btn-secondary">Go Home</a>
+    </div>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (!token) {
+      showError('No verification token provided');
+    } else {
+      verifyEmail(token);
+    }
+
+    async function verifyEmail(token) {
+      try {
+        const response = await fetch(`/api/email/verify/${token}`);
+        const data = await response.json();
+
+        if (response.ok) {
+          showSuccess(data.message);
+        } else {
+          showError(data.message || 'Verification failed');
+        }
+      } catch (error) {
+        console.error('Verification error:', error);
+        showError('An error occurred during verification');
+      }
+    }
+
+    function showSuccess(message) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('success').style.display = 'block';
+      document.getElementById('title').textContent = 'Email Verified! 🎉';
+      document.getElementById('message').textContent = message;
+      document.getElementById('actions').style.display = 'block';
+    }
+
+    function showError(message) {
+      document.getElementById('loading').style.display = 'none';
+      document.getElementById('error-icon').style.display = 'block';
+      document.getElementById('title').textContent = 'Verification Failed';
+      document.getElementById('message').textContent = message;
+      document.getElementById('actions').style.display = 'block';
+    }
+  </script>
+</body>
+</html>

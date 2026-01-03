@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<!--
+  public/forum.html
+
+  Forum page shell. The forum UI loads posts via the API and renders them client-side.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piqniq - Forum</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/markdown-and-notifications.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Piqniq Logo" class="logo">
+      <div class="title-section">
+        <h1>Piqniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/resources.html">Resources</a>
+      <a href="/study.html">Study Room</a>
+      <a href="/livechat.html">Live Chat</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <button id="signIn">Sign In</button>
+      <button id="register">Register</button>
+    </div>
+  </header>
+
+    <main>
+      <section class="forum-hero">
+        <h2>Community Forum</h2>
+        <p>Join the conversation, ask questions, and share your knowledge.</p>
+        
+        <!-- Search Bar -->
+        <div class="search-container" style="margin: 25px auto;">
+          <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search posts, topics, or users..." />
+            <button class="search-btn" id="searchBtn">🔍</button>
+          </div>
+          <div id="searchResults" class="search-results"></div>
+        </div>
+        
+        <button id="createPostBtn" class="create-post-btn">
+          <span style="font-size: 1.2em; margin-right: 5px;">+</span> Create New Post
+        </button>
+      </section>
+
+      <section class="recent-topics">
+        <div class="section-header">
+          <h3>Recent Discussions</h3>
+          <div class="forum-controls" id="forumControls">
+            <div class="control-group">
+              <label for="categoryFilter">Category:</label>
+              <select id="categoryFilter" class="forum-filter">
+                <option value="all">All Categories</option>
+                <option value="general">General Discussion</option>
+                <option value="frontend">Frontend Development</option>
+                <option value="backend">Backend Development</option>
+                <option value="learning">Learning & Resources</option>
+                <option value="showcase">Project Showcase</option>
+                <option value="career">Career & Jobs</option>
+                <option value="cybersecurity">Cybersecurity</option>
+                <option value="devops">DevOps</option>
+                <option value="cloud">Cloud & Infrastructure</option>
+                <option value="data">Data & Analytics</option>
+                <option value="mobile">Mobile Development</option>
+                <option value="ai">AI & Machine Learning</option>
+              </select>
+            </div>
+            <div class="control-group">
+              <label for="sortBy">Sort by:</label>
+              <select id="sortBy" class="forum-filter">
+                <option value="newest">Newest First</option>
+                <option value="oldest">Oldest First</option>
+                <option value="popular">Most Popular</option>
+                <option value="mostReplies">Most Replies</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="forum-split" id="forumSplit">
+          <div class="forum-split-left">
+            <div id="topicsContainer">
+              <!-- Loading skeleton will be inserted here -->
+              <div class="loading-skeleton">
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+                <div class="skeleton-item"></div>
+              </div>
+            </div>
+
+            <div id="paginationContainer"></div>
+
+            <div id="emptyState" class="empty-state" style="display: none;">
+              <div class="empty-icon">💬</div>
+              <h3>No posts yet</h3>
+              <p>Be the first to start a discussion in the community!</p>
+              <button class="create-first-post-btn" id="createFirstPostBtn">Create First Post</button>
+            </div>
+          </div>
+
+          <aside class="forum-split-right" aria-label="Selected discussion">
+            <div id="postDetail" class="post-detail" data-state="empty">
+              <div class="post-detail-empty">
+                <h4>Select a discussion</h4>
+                <p>Click a post on the left to read and reply.</p>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <section class="forum-cta">
+        <h3>Ready to join the discussion?</h3>
+        <p>Sign in or register to start posting and connecting with the community.</p>
+        <div class="cta-buttons">
+          <button class="cta-btn" id="ctaSignInBtn">Sign In</button>
+          <button class="cta-btn primary" id="ctaRegisterBtn">Create Account</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section footer-brand">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="Piqniq Logo">
+            <h3>Piqniq</h3>
+          </div>
+          <p>Gather, Share, Grow</p>
+          <p>A vibrant community platform for technology enthusiasts to connect, learn, and showcase their work.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon" title="Twitter">𝕏</a>
+            <a href="#" class="social-icon" title="GitHub">⚡</a>
+            <a href="#" class="social-icon" title="LinkedIn">in</a>
+            <a href="#" class="social-icon" title="Discord">💬</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/pathways">IT Pathways</a>
+            <a href="/forum">Forum</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Community</h3>
+          <div class="footer-links">
+            <a href="/forum">Discussions</a>
+            <a href="#">Events</a>
+            <a href="#">Contributors</a>
+            <a href="#">Blog</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">Tutorials</a>
+            <a href="#">API</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Piqniq. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#" id="contactButton">Contact</a>
+          <a href="#" id="aboutButton">About</a>
+        </div>
+      </div>
+    </footer>
+      <!-- Modal for Sign In/Register -->
+      <div class="modal" id="signInModal">
+        <div class="modal-content">
+          <!-- Sign In Form -->
+          <form id="signInForm">
+            <!-- Form fields for sign-in -->
+            <input type="text" name="email" placeholder="Email or username" autocapitalize="none" autocomplete="username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+            <button type="button" class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <div class="modal" id="registerModal">
+        <div class="modal-content">
+          <!-- Register Form -->
+          <form id="registerForm">
+            <!-- Form fields for registration -->
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" autocapitalize="none" autocomplete="email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+            <button type="button" class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <!-- Modal for Contact -->
+      <div class="modal" id="contactModal">
+        <div class="modal-content">
+          <h3>Contact Us</h3>
+          <p>This is a simple contact section where you can reach out to us.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <!-- Modal for About -->
+      <div class="modal" id="aboutModal">
+        <div class="modal-content">
+          <h3>About Us</h3>
+          <p>This is a brief description of who we are and what we do.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <!-- Create Post Modal -->
+      <div class="modal" id="createPostModal">
+        <div class="modal-content">
+          <h3>Create New Post</h3>
+          <form id="createPostForm">
+            <input type="text" name="title" placeholder="Post Title" required maxlength="200">
+            
+            <select name="category" required>
+              <option value="" disabled selected>Select Category</option>
+              <option value="general">💬 General Discussion</option>
+              <option value="frontend">💻 Frontend Development</option>
+              <option value="backend">⚙️ Backend Development</option>
+              <option value="learning">🎓 Learning & Resources</option>
+              <option value="showcase">🚀 Project Showcase</option>
+              <option value="career">💼 Career & Jobs</option>
+              <option value="cybersecurity">🛡️ Cybersecurity</option>
+              <option value="devops">🔁 DevOps</option>
+              <option value="cloud">☁️ Cloud & Infrastructure</option>
+              <option value="data">📊 Data & Analytics</option>
+              <option value="mobile">📱 Mobile Development</option>
+              <option value="ai">🤖 AI & Machine Learning</option>
+            </select>
+
+            <label for="postTags">Tags (curated)</label>
+            <select id="postTags" name="tags" multiple size="6"></select>
+            <small style="opacity:0.8; display:block; margin-top:6px;">Hold Ctrl (Windows) / Cmd (Mac) to select multiple.</small>
+            
+            <div class="markdown-editor-wrapper">
+              <textarea id="postContent" name="content" placeholder="Write your post content here... (Markdown supported)" required rows="10" maxlength="5000"></textarea>
+              <div id="markdownPreview" style="display: none;"></div>
+            </div>
+            
+            <div class="form-actions">
+              <button type="submit" class="btn-primary">Post</button>
+              <button type="button" class="close-modal">Cancel</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <script src="/js/modals.js"></script>
+      <script src="/js/auth.js"></script>
+      <script src="/js/forum.js"></script>
+      <script src="/js/forum-enhancements.js"></script>
+      <script src="/js/theme.js"></script>
+      <script src="/js/search.js"></script>
+      <script src="/js/mobile-menu.js"></script>
+      <script src="/js/markdown-editor.js"></script>
+      <script src="/js/notifications.js"></script>
+    </body>
+    </html>

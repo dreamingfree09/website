@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<!--
+  public/index.html
+
+  Landing page shell for the Piqniq platform.
+  Most interactive behavior (auth UI, navigation state, etc.) is handled by JS modules.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piqniq</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/markdown-and-notifications.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+  <link rel="stylesheet" href="/css/slider.css"> <!-- Add the CSS for the slider -->
+</head>
+  <body>
+    <header>
+      <div id="branding">
+        <img src="/images/logo.png" alt="Piqniq Logo" class="logo">
+        <div class="title-section">
+          <h1>Piqniq</h1>
+          <p class="tagline">Gather, Share, Grow</p>
+        </div>
+      </div>
+  
+      <nav>
+        <a href="/">Home</a>
+        <a href="/portfolio.html">Portfolio</a>
+        <a href="/pathways.html">IT Pathways</a>
+        <a href="/forum.html">Forum</a>
+        <a href="/resources.html">Resources</a>
+        <a href="/study.html">Study Room</a>
+        <a href="/livechat.html">Live Chat</a>
+      </nav>
+  
+      <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>      <button id="signIn">Sign In</button>        <button id="register">Register</button>
+      </div>
+    </header>
+  
+    <main>
+      <section class="welcome-section">
+        <h2>Welcome to Piqniq</h2>
+        <p class="lead">A community-first space where tech learners and builders ask questions, share progress, and grow together.</p>
+        <p>Start by joining a discussion, then explore pathways, resources, and portfolios when you need them.</p>
+
+        <div class="form-actions" aria-label="Get started">
+          <button type="button" class="btn-primary" onclick="window.location.href='/forum.html'">Explore the Forum</button>
+          <button type="button" class="btn-secondary" onclick="window.location.href='/resources.html'">Browse Resources</button>
+        </div>
+      </section>
+      
+       <!-- Image Slider -->
+    <div class="slider">
+      <img class="slide" src="/images/image 1.png" alt="image 1" decoding="async" fetchpriority="high">
+      <img class="slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="/images/image 2.png" alt="image 2" loading="lazy" decoding="async">
+      <img class="slide" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///ywAAAAAAQABAAACAUwAOw==" data-src="/images/image 3.png" alt="image 3" loading="lazy" decoding="async">
+
+      <!-- Arrow buttons -->
+      <div id="arrow-left" class="arrow">&#10094;</div>
+      <div id="arrow-right" class="arrow">&#10095;</div>
+    </div>
+
+    <section class="home-section" aria-label="What you can do">
+      <div class="section-header">
+        <div>
+          <h3>What you can do here</h3>
+          <p class="lead">Use any path—everything connects back to the community.</p>
+        </div>
+      </div>
+
+    <div class="features-grid features-grid--home-actions">
+      <div class="feature-card">
+        <div class="feature-icon">💼</div>
+        <h3>Portfolio Showcase</h3>
+        <p>Publish projects, highlight skills, and share a profile you can link to anywhere.</p>
+        <a class="btn-secondary" href="/portfolio.html">Open Portfolio</a>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">🎓</div>
+        <h3>Career Pathways</h3>
+        <p>Follow step-by-step roadmaps for roles like IT Support, Web Dev, and Cybersecurity.</p>
+        <a class="btn-secondary" href="/pathways.html">View Pathways</a>
+      </div>
+      
+      <div class="feature-card">
+        <div class="feature-icon">💬</div>
+        <h3>Community Forum</h3>
+        <p>Ask questions, share wins, get feedback, and learn from the community.</p>
+        <a class="btn-secondary" href="/forum.html">Go to Forum</a>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">📚</div>
+        <h3>Curated Resources</h3>
+        <p>Find high-quality tutorials, docs, and guides without digging through the noise.</p>
+        <a class="btn-secondary" href="/resources.html">Browse Resources</a>
+      </div>
+    </div>
+    </section>
+
+    <section class="home-section" aria-label="Latest discussions">
+      <div class="section-header">
+        <div>
+          <h3>Latest discussions</h3>
+          <p class="lead">Community activity, updated live from the forum.</p>
+        </div>
+        <button type="button" class="btn-secondary" onclick="window.location.href='/forum.html'">Go to forum</button>
+      </div>
+
+      <div id="homeLatestDiscussions" class="features-grid" aria-live="polite"></div>
+    </section>
+
+    <section class="home-section" aria-label="Tech news">
+      <div class="section-header">
+        <div>
+          <h3>Tech news</h3>
+          <p class="lead">Headlines from reliable sources.</p>
+        </div>
+      </div>
+
+      <div class="news-carousel" aria-label="Tech news carousel">
+        <button id="newsArrowLeft" class="news-arrow" type="button" aria-label="Previous news">&#10094;</button>
+
+        <div id="homeTechNewsViewport" class="news-viewport" tabindex="0" aria-label="Scrollable tech news">
+          <div id="homeTechNews" class="news-track" aria-live="polite"></div>
+        </div>
+
+        <button id="newsArrowRight" class="news-arrow" type="button" aria-label="Next news">&#10095;</button>
+      </div>
+    </section>
+
+    <section class="home-section" aria-label="Featured resources">
+      <div class="section-header">
+        <div>
+          <h3>Featured resources</h3>
+          <p class="lead">A few curated picks to support what you’re learning.</p>
+        </div>
+        <button type="button" class="btn-secondary" onclick="window.location.href='/resources.html'">See all</button>
+      </div>
+
+      <div id="homeFeaturedResources" class="features-grid" aria-live="polite"></div>
+    </section>
+    </main>
+  
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section footer-brand">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="Piqniq Logo">
+            <h3>Piqniq</h3>
+          </div>
+          <p>Gather, Share, Grow</p>
+          <p>A vibrant community platform for technology enthusiasts to connect, learn, and showcase their work.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon" title="Twitter">𝕏</a>
+            <a href="#" class="social-icon" title="GitHub">⚡</a>
+            <a href="#" class="social-icon" title="LinkedIn">in</a>
+            <a href="#" class="social-icon" title="Discord">💬</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/pathways">IT Pathways</a>
+            <a href="/forum">Forum</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Community</h3>
+          <div class="footer-links">
+            <a href="/forum">Discussions</a>
+            <a href="#">Events</a>
+            <a href="#">Contributors</a>
+            <a href="#">Blog</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">Tutorials</a>
+            <a href="#">API</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Piqniq. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#" id="contactButton">Contact</a>
+          <a href="#" id="aboutButton">About</a>
+        </div>
+      </div>
+    </footer>
+    
+    <!-- Modal scripts -->
+    <!-- Modal for Sign In/Register -->
+    <div class="modal" id="signInModal">
+      <div class="modal-content">
+        <!-- Sign In Form -->
+        <form id="signInForm">
+          <!-- Form fields for sign-in -->
+          <input type="text" name="email" placeholder="Email or username" autocapitalize="none" autocomplete="username">
+          <input type="password" name="password" placeholder="Password">
+          <button type="submit">Sign In</button>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </form>
+      </div>
+    </div>
+  
+    <div class="modal" id="registerModal">
+      <div class="modal-content">
+        <!-- Register Form -->
+        <form id="registerForm">
+          <!-- Form fields for registration -->
+          <input type="text" name="username" placeholder="Username" required>
+          <input type="email" name="email" placeholder="Email" autocapitalize="none" autocomplete="email" required>
+          <input type="password" name="password" placeholder="Password" required>
+          <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+          <button type="submit">Register</button>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </form>
+      </div>
+    </div>
+  
+    <!-- Modal for Contact -->
+    <div class="modal" id="contactModal">
+      <div class="modal-content">
+        <h3>Contact Us</h3>
+        <p>This is a simple contact section where you can reach out to us.</p>
+        <button class="close-modal">Close</button> <!-- Close button added -->
+      </div>
+    </div>
+  
+    <!-- Modal for About -->
+    <div class="modal" id="aboutModal">
+      <div class="modal-content">
+        <h3>About Us</h3>
+        <p>This is a brief description of who we are and what we do.</p>
+        <button class="close-modal">Close</button> <!-- Close button added -->
+      </div>
+    </div>
+  
+    <script src="/js/slider.js"></script>
+    <script src="/js/home.js"></script>
+    <script src="/js/modals.js"></script>
+    <script src="/js/auth.js"></script>
+    <script src="/js/theme.js"></script>
+    <script src="/js/mobile-menu.js"></script>
+  </body>
+</html>

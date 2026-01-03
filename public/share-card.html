@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!--
+  public/share-card.html
+
+  Combined share card (bio + portfolio).
+  This page is served at /share/card/:token.
+  It fetches card data from /share/card/:token/data.
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Share Card - Piqniq</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="icon" href="/images/logo.png" type="image/x-icon" />
+</head>
+<body>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Piqniq Logo" class="logo" />
+      <div class="title-section">
+        <h1>Piqniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <a class="btn-secondary" href="/">Back</a>
+    </div>
+  </header>
+
+  <main>
+    <div class="profile" id="shareCardRoot">
+      <div class="empty-message" id="shareCardStatus">
+        <h2>Loading share card…</h2>
+        <p>Please wait.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2026 Piqniq. Empowering tech enthusiasts to connect and innovate.</p>
+  </footer>
+
+  <script src="/js/share-card.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/mobile-menu.js"></script>
+</body>
+</html>

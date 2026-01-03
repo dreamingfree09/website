@@ -1,0 +1,31 @@
+# .gitignore
+#
+# Git ignore rules for local development artifacts.
+# Keeps dependencies, logs, and generated outputs out of version control.
+
+node_modules/
+.env
+
+# Runtime uploaded files (should never be committed)
+uploads/
+public/uploads/
+
+# Generated runtime cache (e.g., WebP image cache)
+.cache/
+
+# Test coverage output
+coverage/
+
+# Logs
+logs/*.log
+
+# Temporary debug artifacts
+.tmp_*
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<!--
+  public/livechat.html
+
+  Real-time chat page shell.
+
+  The UI is rendered client-side and connects to the server via Socket.IO.
+  This page loads /js/chat.js and expects the server to expose /socket.io.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piqniq - Live Chat</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/markdown-and-notifications.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Piqniq Logo" class="logo">
+      <div class="title-section">
+        <h1>Piqniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/resources.html">Resources</a>
+      <a href="/study.html">Study Room</a>
+      <a href="/livechat.html">Live Chat</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <button id="signIn">Sign In</button>
+      <button id="register">Register</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="chat-shell">
+      <aside class="chat-sidebar">
+        <div class="chat-sidebar-header">
+          <h2>Live Chat</h2>
+          <p class="chat-hint">Messages are stored and auto-deleted after 5 months.</p>
+        </div>
+
+        <div id="chatAuthNotice" class="chat-notice" aria-live="polite"></div>
+
+        <div class="chat-panel">
+          <div class="chat-panel-title">Create a room</div>
+          <div class="chat-form-row">
+            <input id="newRoomName" class="chat-input-text" type="text" placeholder="Room name (letters/numbers/_/-)" maxlength="50" />
+          </div>
+          <div class="chat-form-row chat-form-inline">
+            <label class="chat-checkbox">
+              <input id="newRoomPrivate" type="checkbox" />
+              Private
+            </label>
+            <input id="newRoomPassword" class="chat-input-text" type="password" placeholder="Password (private rooms only)" maxlength="64" disabled />
+          </div>
+          <div class="chat-form-row">
+            <button id="createRoomBtn" class="chat-btn" type="button">Create</button>
+          </div>
+          <div id="createRoomResult" class="chat-small" aria-live="polite"></div>
+        </div>
+
+        <div class="chat-panel">
+          <div class="chat-panel-title">Join a private room</div>
+          <div class="chat-form-row">
+            <input id="joinCode" class="chat-input-text" type="text" placeholder="Invite code" />
+          </div>
+          <div class="chat-form-row">
+            <input id="joinPassword" class="chat-input-text" type="password" placeholder="Password (if set)" maxlength="64" />
+          </div>
+          <div class="chat-form-row">
+            <button id="joinByCodeBtn" class="chat-btn" type="button">Join</button>
+          </div>
+
+          <div class="chat-panel-title">Invite code</div>
+          <div class="chat-form-row chat-form-inline">
+            <input id="inviteCodeDisplay" class="chat-input-text" type="text" placeholder="(use /invite in a private room)" readonly />
+            <button id="copyInviteBtn" class="chat-btn chat-btn-secondary" type="button" disabled>Copy</button>
+          </div>
+          <div id="inviteResult" class="chat-small" aria-live="polite"></div>
+        </div>
+
+        <div class="chat-panel">
+          <div class="chat-panel-title">Your private rooms</div>
+          <div id="myPrivateRoomsList" class="chat-rooms" role="list"></div>
+          <div class="chat-small">Private rooms are not listed publicly. Click one to fill the invite code.</div>
+        </div>
+
+        <div class="chat-panel">
+          <div class="chat-panel-title">Public rooms</div>
+          <div id="roomsList" class="chat-rooms" role="list"></div>
+        </div>
+
+        <div class="chat-panel">
+          <div class="chat-panel-title">In this room</div>
+          <div id="presenceList" class="chat-presence" role="list"></div>
+          <div class="chat-small">Active = recent message (5 min)</div>
+        </div>
+      </aside>
+
+      <section class="chat-main">
+        <div class="chat-room-header">
+          <div class="chat-room-title">
+            <div class="chat-room-name" id="currentRoomName">No room selected</div>
+            <div class="chat-conn chat-muted" id="chatConnectionStatus">Offline</div>
+          </div>
+          <button id="leaveRoomBtn" class="chat-btn chat-btn-secondary" type="button" disabled>Leave</button>
+        </div>
+
+        <div id="chatLog" class="chat-log" aria-live="polite" aria-relevant="additions"></div>
+
+        <form id="chatSendForm" class="chat-send" autocomplete="off">
+          <button id="emojiBtn" class="chat-btn chat-btn-secondary chat-btn-icon" type="button" disabled title="Emoji">😊</button>
+          <button id="gifBtn" class="chat-btn chat-btn-secondary chat-btn-icon" type="button" disabled title="GIF">GIF</button>
+          <button id="uploadBtn" class="chat-btn chat-btn-secondary chat-btn-icon" type="button" disabled title="Upload (max 5MB)">📎</button>
+          <input id="chatMessageInput" class="chat-input-text" type="text" placeholder="Type a message… (try /help)" maxlength="2000" disabled />
+          <button class="chat-btn" type="submit" disabled>Send</button>
+          <input id="chatFileInput" type="file" hidden accept="image/*,.txt,.pdf" />
+        </form>
+
+        <div id="emojiPanel" class="chat-emoji-panel" hidden>
+          <button type="button" class="chat-emoji">😀</button>
+          <button type="button" class="chat-emoji">😂</button>
+          <button type="button" class="chat-emoji">❤️</button>
+          <button type="button" class="chat-emoji">👍</button>
+          <button type="button" class="chat-emoji">🔥</button>
+          <button type="button" class="chat-emoji">🎉</button>
+          <button type="button" class="chat-emoji">😢</button>
+          <button type="button" class="chat-emoji">🙏</button>
+        </div>
+
+        <div id="gifPanel" class="chat-gif-panel" hidden>
+          <div class="chat-form-row">
+            <input id="gifSearchInput" class="chat-input-text" type="text" placeholder="Search GIFs…" maxlength="80" />
+          </div>
+          <div id="gifResults" class="chat-gif-results" role="list"></div>
+          <div id="gifResultHint" class="chat-small" aria-live="polite"></div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <!-- Modal for Sign In/Register -->
+  <div class="modal" id="signInModal">
+    <div class="modal-content">
+      <form id="signInForm">
+        <input type="text" name="email" placeholder="Email or username" autocapitalize="none" autocomplete="username">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Sign In</button>
+        <button class="close-modal">Close</button>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="registerModal">
+    <div class="modal-content">
+      <form id="registerForm">
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="email" name="email" placeholder="Email" autocapitalize="none" autocomplete="email" required>
+        <input type="password" name="password" placeholder="Password" required>
+        <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+        <button type="submit">Register</button>
+        <button class="close-modal">Close</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="/js/modals.js?v=20260102b"></script>
+  <script src="/js/auth.js?v=20260102b"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/notifications.js"></script>
+  <script src="/js/websocket-client.js"></script>
+  <script src="/js/chat.js?v=20260102b"></script>
+</body>
+
+</html>

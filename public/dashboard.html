@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+  public/dashboard.html
+
+  Signed-in user dashboard shell.
+  The UI loads data via /api/profile/dashboard/me.
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Piqniq</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Piqniq Logo" class="logo">
+      <div class="title-section">
+        <h1>Piqniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/study.html">Study Room</a>
+      <a href="/livechat.html">Live Chat</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <button id="signIn">Sign In</button>
+      <button id="register">Register</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="dashboardContainer" class="dashboard"></div>
+  </main>
+
+  <footer>
+    <p>&copy; 2024 Piqniq. Empowering tech enthusiasts to connect and innovate.</p>
+    <div class="footer-links">
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="#privacy">Privacy Policy</a>
+    </div>
+  </footer>
+
+  <script src="/js/modals.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/profile.js"></script>
+  <script src="/js/theme.js"></script>
+  <script src="/js/mobile-menu.js"></script>
+  <script src="/js/notifications.js"></script>
+
+  <script>
+    // Check if user is logged in (auth.js exposes window.auth)
+    (async () => {
+      try {
+        if (window.auth && typeof window.auth.checkAuthStatus === 'function') {
+          await window.auth.checkAuthStatus();
+        }
+      } catch {
+        // ignore
+      }
+
+      if (!window.auth || !window.auth.currentUser) {
+        const container = document.getElementById('dashboardContainer');
+        if (container) {
+          container.innerHTML = `
+            <div class="empty-message">
+              <h2>Sign in required</h2>
+              <p>Please sign in to view your dashboard.</p>
+              <button type="button" class="btn-primary" id="openSignInFromDashboard">Sign In</button>
+            </div>
+          `;
+          const btn = document.getElementById('openSignInFromDashboard');
+          if (btn) {
+            btn.addEventListener('click', () => {
+              const signInModal = document.getElementById('signInModal');
+              if (signInModal) signInModal.style.display = 'block';
+            });
+          }
+        }
+        return;
+      }
+
+      const profileManager = new ProfileManager();
+      profileManager.loadDashboard();
+    })();
+  </script>
+</body>
+</html>

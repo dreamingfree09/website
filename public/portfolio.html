@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+  public/portfolio.html
+
+  Portfolio page shell.
+  - /portfolio: portfolio editor for the signed-in user
+  - /portfolio/:username: personal portfolio view (invite-only via ?token=... or owner session)
+-->
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Piqniq - Portfolio</title>
+  <script src="/js/theme-init.js"></script>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="/css/markdown-and-notifications.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="/images/logo.png" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div id="branding">
+      <img src="/images/logo.png" alt="Piqniq Logo" class="logo">
+      <div class="title-section">
+        <h1>Piqniq</h1>
+        <p class="tagline">Gather, Share, Grow</p>
+      </div>
+    </div>
+
+    <nav>
+      <a href="/">Home</a>
+      <a href="/portfolio.html">Portfolio</a>
+      <a href="/pathways.html">IT Pathways</a>
+      <a href="/forum.html">Forum</a>
+      <a href="/resources.html">Resources</a>
+      <a href="/study.html">Study Room</a>
+      <a href="/livechat.html">Live Chat</a>
+    </nav>
+
+    <div class="auth-buttons">
+      <button id="themeToggle" class="theme-toggle" aria-label="Toggle dark mode">
+        <span class="theme-icon">🌙</span>
+      </button>
+      <button id="signIn">Sign In</button>
+      <button id="register">Register</button>
+    </div>
+  </header>
+
+    <main>
+      <div id="portfolioApp"></div>
+
+      <!-- Fallback static content (hidden when the portfolio app loads) -->
+      <div id="portfolioStatic">
+        <section class="portfolio-hero">
+          <h2>Portfolio</h2>
+          <p>Site-wide portfolio items are curated by the team. Personal portfolios are invite-only.</p>
+        </section>
+
+        <section class="skills-section">
+          <h3>Technical Skills</h3>
+          <div class="skills-grid">
+            <div class="skill-card">
+              <h4>Frontend Development</h4>
+              <ul>
+                <li>HTML5, CSS3, JavaScript (ES6+)</li>
+                <li>React, Vue.js</li>
+                <li>Responsive Design</li>
+                <li>UI/UX Principles</li>
+              </ul>
+            </div>
+            <div class="skill-card">
+              <h4>Backend Development</h4>
+              <ul>
+                <li>Node.js, Express</li>
+                <li>MongoDB, PostgreSQL</li>
+                <li>RESTful APIs</li>
+                <li>Authentication &amp; Security</li>
+              </ul>
+            </div>
+            <div class="skill-card">
+              <h4>Tools &amp; Technologies</h4>
+              <ul>
+                <li>Git &amp; GitHub</li>
+                <li>VS Code</li>
+                <li>NPM &amp; Package Management</li>
+                <li>Agile Methodologies</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section class="projects-section">
+          <h3>Featured Projects</h3>
+          <div class="projects-grid">
+            <div class="project-card">
+              <h4>Piqniq Platform</h4>
+              <p>A community-driven platform for gathering, sharing, and growing together. Built with Express.js, MongoDB, and modern frontend technologies.</p>
+              <div class="project-tags">
+                <span class="tag">Node.js</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Express</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <h4>Portfolio Website</h4>
+              <p>Personal portfolio showcasing projects and skills with responsive design and interactive elements.</p>
+              <div class="project-tags">
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">Responsive</span>
+              </div>
+            </div>
+            <div class="project-card">
+              <h4>IT Learning Hub</h4>
+              <p>Educational resource platform providing guided pathways for aspiring IT professionals.</p>
+              <div class="project-tags">
+                <span class="tag">Web Dev</span>
+                <span class="tag">Education</span>
+                <span class="tag">Community</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-content">
+        <div class="footer-section footer-brand">
+          <div class="footer-logo">
+            <img src="/images/logo.png" alt="Piqniq Logo">
+            <h3>Piqniq</h3>
+          </div>
+          <p>Gather, Share, Grow</p>
+          <p>A vibrant community platform for technology enthusiasts to connect, learn, and showcase their work.</p>
+          <div class="footer-social">
+            <a href="#" class="social-icon" title="Twitter">𝕏</a>
+            <a href="#" class="social-icon" title="GitHub">⚡</a>
+            <a href="#" class="social-icon" title="LinkedIn">in</a>
+            <a href="#" class="social-icon" title="Discord">💬</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Explore</h3>
+          <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/portfolio">Portfolio</a>
+            <a href="/pathways">IT Pathways</a>
+            <a href="/forum">Forum</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Community</h3>
+          <div class="footer-links">
+            <a href="/forum">Discussions</a>
+            <a href="#">Events</a>
+            <a href="#">Contributors</a>
+            <a href="#">Blog</a>
+          </div>
+        </div>
+        
+        <div class="footer-section">
+          <h3>Resources</h3>
+          <div class="footer-links">
+            <a href="#">Documentation</a>
+            <a href="#">Tutorials</a>
+            <a href="#">API</a>
+            <a href="#">Support</a>
+          </div>
+        </div>
+      </div>
+      
+      <div class="footer-bottom">
+        <p>&copy; 2025 Piqniq. All rights reserved.</p>
+        <div class="footer-bottom-links">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
+          <a href="#" id="contactButton">Contact</a>
+          <a href="#" id="aboutButton">About</a>
+        </div>
+      </div>
+    </footer>
+    
+      <!-- Modal for Sign In/Register -->
+      <div class="modal" id="signInModal">
+        <div class="modal-content">
+          <!-- Sign In Form -->
+          <form id="signInForm">
+            <!-- Form fields for sign-in -->
+            <input type="text" name="email" placeholder="Email or username" autocapitalize="none" autocomplete="username">
+            <input type="password" name="password" placeholder="Password">
+            <button type="submit">Sign In</button>
+            <button class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <div class="modal" id="registerModal">
+        <div class="modal-content">
+          <!-- Register Form -->
+          <form id="registerForm">
+            <!-- Form fields for registration -->
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="email" name="email" placeholder="Email" autocapitalize="none" autocomplete="email" required>
+            <input type="password" name="password" placeholder="Password" required>
+            <input type="password" name="confirmPassword" placeholder="Confirm Password" required>
+            <button type="submit">Register</button>
+            <button class="close-modal">Close</button> <!-- Close button added -->
+          </form>
+        </div>
+      </div>
+    
+      <!-- Modal for Contact -->
+      <div class="modal" id="contactModal">
+        <div class="modal-content">
+          <h3>Contact Us</h3>
+          <p>This is a simple contact section where you can reach out to us.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <!-- Modal for About -->
+      <div class="modal" id="aboutModal">
+        <div class="modal-content">
+          <h3>About Us</h3>
+          <p>This is a brief description of who we are and what we do.</p>
+          <button class="close-modal">Close</button> <!-- Close button added -->
+        </div>
+      </div>
+    
+      <script src="/js/modals.js"></script>
+      <script src="/js/auth.js"></script>
+      <script src="/js/portfolio.js"></script>
+      <script src="/js/theme.js"></script>
+      <script src="/js/mobile-menu.js"></script>
+      <script src="/js/notifications.js"></script>
+    </body>
+    </html>

@@ -1,0 +1,42 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "allowCompoundWords": true,
+  "words": [
+    "Piqniq",
+    "WebSocket",
+    "websockets",
+    "Nodemailer",
+    "bcrypt",
+    "bcryptjs",
+    "mongoose",
+    "MongoDB",
+    "MongoStore",
+    "Supertest",
+    "Jest",
+    "Swagger",
+    "jsdoc",
+    "middleware",
+    "localhost",
+    "HSTS",
+    "CSP",
+    "CSRF",
+    "devops",
+    "glassmorphism",
+    "upvote",
+    "upvotes",
+    "gamification",
+    "rolebased",
+    "signup",
+    "signin",
+    "logout",
+    "login",
+    "username",
+    "emails",
+    "nodemon"
+  ],
+  "ignorePaths": [
+    "node_modules/**",
+    "coverage/**"
+  ]
+}
